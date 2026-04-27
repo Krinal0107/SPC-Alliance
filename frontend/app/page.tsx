@@ -251,9 +251,9 @@ export default function Home() {
                 initials: 'EL',
               },
               {
-                name: 'Paul', role: 'COO',
+                name: 'Krinal', role: 'COO',
                 bio: 'Previous owner of Exacta Land Services (2019 PE exit). 30 years in land surveying. Creator of SurveyStars platform.',
-                initials: 'PL',
+                initials: 'KL',
               },
               {
                 name: 'Chandra', role: 'CTO',
