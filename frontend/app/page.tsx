@@ -252,7 +252,7 @@ export default function Home() {
               },
               {
                 name: 'Krinal', role: 'COO',
-                bio: 'Full-Stack developer across web2 and web3 technologies',
+                bio: 'Full-stack developer shaping the future through Web2 and Web3 technologies.',
                 initials: 'KR',
               },
               {
