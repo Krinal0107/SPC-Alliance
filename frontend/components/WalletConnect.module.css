@@ -1,0 +1,90 @@
+.walletContainer {
+  position: relative;
+}
+
+.connectBtn {
+  background: linear-gradient(135deg, #1a73f5 0%, #0a40b8 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.connectBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(26, 115, 245, 0.3);
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  min-width: 200px;
+  z-index: 100;
+  margin-top: 8px;
+}
+
+.connectorBtn {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  transition: background 0.2s;
+}
+
+.connectorBtn:hover {
+  background: #f5f5f5;
+}
+
+.connectorBtn:first-child {
+  border-radius: 8px 8px 0 0;
+}
+
+.connectorBtn:last-child {
+  border-radius: 0 0 8px 8px;
+}
+
+.walletConnected {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  background: #f0f7ff;
+  border-radius: 6px;
+  border: 1px solid #1a73f5;
+}
+
+.address {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  color: #1a73f5;
+  font-weight: 600;
+}
+
+.disconnectBtn {
+  background: #ff4444;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.2s;
+}
+
+.disconnectBtn:hover {
+  background: #cc0000;
+}

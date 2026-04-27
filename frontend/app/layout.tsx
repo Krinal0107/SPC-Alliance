@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { Web3Provider } from './Web3Provider'
 
 export const metadata: Metadata = {
   title: 'SPC Alliance — Survey Point Coordinate Marketplace',
@@ -20,7 +21,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body>{children}</body>
+      <body>
+        <Web3Provider>
+          {children}
+        </Web3Provider>
+      </body>
     </html>
   )
 }

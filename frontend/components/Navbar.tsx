@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { Menu, X, ChevronDown } from 'lucide-react'
+import WalletConnect from './WalletConnect'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
@@ -64,6 +65,7 @@ export default function Navbar() {
 
       {/* CTA */}
       <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+        <WalletConnect />
         <Link href="/auth" className="btn-ghost" style={{ padding: '8px 20px', fontSize: 13 }}>
           Sign In
         </Link>
