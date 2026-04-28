@@ -11,19 +11,21 @@
   "dependencies": {
     "@headlessui/react": "^2.1.1",
     "@tanstack/react-query": "^5.100.5",
-    "@web3modal/siwe": "^5.1.11",
-    "@web3modal/wagmi": "^5.1.11",
+    "@walletconnect/ethereum-provider": "^2.23.9",
+    "accounts": "^0.8.2",
     "clsx": "^2.1.1",
     "ethers": "^6.16.0",
     "lucide-react": "^0.383.0",
     "mapbox-gl": "^3.4.0",
     "next": "14.2.5",
+    "porto": "^0.2.37",
     "react": "^18",
     "react-dom": "^18",
     "react-map-gl": "^7.1.7",
     "recharts": "^2.12.7",
     "viem": "^2.48.4",
-    "wagmi": "^3.6.5"
+    "wagmi": "^3.6.5",
+    "ws": "^8.20.0"
   },
   "devDependencies": {
     "@types/node": "^20",
