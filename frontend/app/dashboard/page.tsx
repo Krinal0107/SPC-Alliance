@@ -1,8 +1,20 @@
 'use client'
+import { useEffect, useState } from 'react'
 import Navbar from '@/components/Navbar'
 import { TrendingUp, MapPin, ShoppingBag, DollarSign, CheckCircle, Clock, Upload, BarChart2, Activity } from 'lucide-react'
 
-const myPoints = [
+type DashboardPoint = {
+  id: string
+  state: string
+  county: string
+  verified: boolean
+  purchases: number
+  earnings: number
+  price: number
+  uploadedAt: string
+}
+
+const myPoints: DashboardPoint[] = [
   { id: 'SPC-OH-001', state: 'Ohio', county: 'Franklin', verified: true, purchases: 8, earnings: 70.00, price: 12.50, uploadedAt: '2024-11-15' },
   { id: 'SPC-OH-004', state: 'Ohio', county: 'Delaware', verified: false, purchases: 2, earnings: 14.00, price: 10.00, uploadedAt: '2024-12-01' },
   { id: 'SPC-OH-007', state: 'Ohio', county: 'Franklin', verified: true, purchases: 5, earnings: 43.75, price: 12.50, uploadedAt: '2024-10-18' },
@@ -25,6 +37,30 @@ const chartData = [
 const maxEarnings = Math.max(...chartData.map(d => d.earnings))
 
 export default function Dashboard() {
+  const [uploadedPoints, setUploadedPoints] = useState<DashboardPoint[]>([])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const stored = window.localStorage.getItem('spcAllianceUploadedPoints')
+    if (!stored) return
+    try {
+      const parsed = JSON.parse(stored) as DashboardPoint[]
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        setUploadedPoints(parsed)
+      }
+    } catch (error) {
+      console.warn('Failed to parse persisted dashboard uploads', error)
+    }
+  }, [])
+
+  const pointsUploaded = 3 + uploadedPoints.length
+  const monthlyUploads = 2 + uploadedPoints.length
+  const totalEarnings = 127.75 + uploadedPoints.reduce((sum, point) => sum + point.earnings, 0)
+  const totalPurchases = 15
+  const pendingVerification = 1 + uploadedPoints.filter(point => !point.verified).length
+
+  const displayPoints = [...myPoints, ...uploadedPoints]
+
   return (
     <>
       <Navbar />
@@ -50,10 +86,10 @@ export default function Dashboard() {
           {/* KPI cards */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16, marginBottom: 28 }}>
             {[
-              { icon: <MapPin size={20} />, label: 'Points Uploaded', val: '3', sub: '+2 this month', color: '#1a73f5' },
-              { icon: <DollarSign size={20} />, label: 'Total Earnings', val: '$127.75', sub: 'USDC lifetime', color: '#10b981' },
-              { icon: <ShoppingBag size={20} />, label: 'Total Purchases', val: '15', sub: 'across all points', color: '#f59e0b' },
-              { icon: <TrendingUp size={20} />, label: 'Pending Verification', val: '1', sub: 'point awaiting review', color: '#8b5cf6' },
+              { icon: <MapPin size={20} />, label: 'Points Uploaded', val: `${pointsUploaded}`, sub: `+${monthlyUploads} this month`, color: '#1a73f5' },
+              { icon: <DollarSign size={20} />, label: 'Total Earnings', val: `$${totalEarnings.toFixed(2)}`, sub: 'USDC lifetime', color: '#10b981' },
+              { icon: <ShoppingBag size={20} />, label: 'Total Purchases', val: `${totalPurchases}`, sub: 'across all points', color: '#f59e0b' },
+              { icon: <TrendingUp size={20} />, label: 'Pending Verification', val: `${pendingVerification}`, sub: 'point awaiting review', color: '#8b5cf6' },
             ].map(({ icon, label, val, sub, color }) => (
               <div key={label} className="card" style={{ padding: 20 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
@@ -133,7 +169,7 @@ export default function Dashboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  {myPoints.map(p => (
+                  {displayPoints.map(p => (
                     <tr key={p.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
                       <td style={{ padding: '14px 12px', fontFamily: 'DM Mono, monospace', fontSize: 12, color: '#4a9bff' }}>{p.id}</td>
                       <td style={{ padding: '14px 12px', fontSize: 13, color: '#8899bb' }}>{p.county}, {p.state}</td>

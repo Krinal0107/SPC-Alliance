@@ -21,7 +21,27 @@ export default function UploadPage() {
   const update = (k: string, v: string) => setForm(prev => ({ ...prev, [k]: v }))
 
   const handleSubmit = () => setStep('confirm')
-  const handleConfirm = () => setStep('success')
+  const handleConfirm = () => {
+    const pointId = `SPC-${form.state.slice(0, 2).toUpperCase()}-${Math.floor(Math.random() * 900 + 100)}`
+    const newPoint = {
+      id: pointId,
+      state: form.state,
+      county: form.county || 'Unknown',
+      verified: false,
+      purchases: 0,
+      earnings: 0,
+      price: parseFloat(form.price) || 0,
+      uploadedAt: new Date().toISOString().slice(0, 10),
+    }
+
+    if (typeof window !== 'undefined') {
+      const stored = window.localStorage.getItem('spcAllianceUploadedPoints')
+      const saved = stored ? JSON.parse(stored) as any[] : []
+      window.localStorage.setItem('spcAllianceUploadedPoints', JSON.stringify([...saved, newPoint]))
+    }
+
+    setStep('success')
+  }
 
   return (
     <>
